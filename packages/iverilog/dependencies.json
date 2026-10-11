@@ -1,0 +1,24 @@
+{
+  "sources": {
+    "iverilog": {
+      "url": "https://github.com/steveicarus/iverilog.git",
+      "ref": "v13_0",
+      "commit": "dfeee909ed9f20b4870dd93423156c0170c0e1ff"
+    }
+  },
+  "build": [
+    "autoconf",
+    "flex",
+    "bison",
+    "gperf",
+    "libreadline-dev",
+    "zlib1g-dev"
+  ],
+  "runtime": [
+    "libc6",
+    "libgcc-s1",
+    "libstdc++6",
+    "libreadline8t64",
+    "zlib1g"
+  ]
+}

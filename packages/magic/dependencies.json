@@ -1,0 +1,31 @@
+{
+  "sources": {
+    "magic": {
+      "url": "https://github.com/RTimothyEdwards/magic.git",
+      "ref": "8.3.685",
+      "commit": "bed8d4ff84333767aa923d469d339cd05c56a00a"
+    }
+  },
+  "build": [
+    "tcsh",
+    "m4",
+    "tcl-dev",
+    "tk-dev",
+    "libx11-dev",
+    "libcairo2-dev",
+    "libgl-dev",
+    "libglu1-mesa-dev",
+    "libreadline-dev",
+    "zlib1g-dev"
+  ],
+  "runtime": [
+    "tcl",
+    "tk",
+    "libc6",
+    "libx11-6",
+    "libcairo2",
+    "libgl1",
+    "libglu1-mesa",
+    "zlib1g"
+  ]
+}

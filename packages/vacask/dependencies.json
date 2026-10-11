@@ -1,0 +1,37 @@
+{
+  "sources": {
+    "vacask": {
+      "url": "https://codeberg.org/arpadbuermen/VACASK",
+      "ref": "_0.3.4",
+      "commit": "c1a1c84f1b2b9aa71c0cddf06e555441434db7b7"
+    },
+    "openvaf": {
+      "url": "https://github.com/OpenVAF/OpenVAF-Reloaded.git",
+      "ref": "v24.0.2mob",
+      "commit": "fdf2522b70f42793f64b1c72f0195c96dea0cc19"
+    },
+    "boost": {
+      "version": "1.88.0",
+      "sha256": "3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4"
+    }
+  },
+  "build": [
+    "curl",
+    "cmake",
+    "ninja-build",
+    "bison",
+    "flex",
+    "libfl-dev",
+    "libtomlplusplus-dev",
+    "libsuitesparse-dev",
+    "libopenblas-dev",
+    "python3",
+    "llvm-18",
+    "llvm-18-dev",
+    "clang-18",
+    "libclang-18-dev"
+  ],
+  "runtime": [
+    "icdesign-openvaf (>= 24.0.2mob-1)"
+  ]
+}

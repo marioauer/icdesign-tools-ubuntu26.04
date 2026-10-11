@@ -1,0 +1,36 @@
+{
+  "sources": {
+    "xyce": {
+      "url": "https://github.com/Xyce/Xyce.git",
+      "ref": "master",
+      "commit": "16889483a370b566a61198fb4bff49e60b75e895"
+    },
+    "trilinos": {
+      "url": "https://github.com/trilinos/Trilinos.git",
+      "ref": "trilinos-release-16-1-0",
+      "commit": "11a16481fa1af48e3cfdb0aa84c29617ce94479f"
+    }
+  },
+  "build": [
+    "bison",
+    "flex",
+    "libfl-dev",
+    "cmake",
+    "gfortran",
+    "libblas-dev",
+    "liblapack-dev",
+    "libsuitesparse-dev",
+    "libfftw3-dev",
+    "python3"
+  ],
+  "runtime": [
+    "libc6",
+    "libgcc-s1",
+    "libstdc++6",
+    "libblas3",
+    "liblapack3",
+    "libamd3",
+    "libsuitesparseconfig7",
+    "libfftw3-double3"
+  ]
+}

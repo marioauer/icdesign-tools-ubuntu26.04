@@ -1,0 +1,9 @@
+{
+  "common": [
+    "ca-certificates",
+    "git",
+    "build-essential",
+    "pkg-config",
+    "dpkg-dev"
+  ]
+}

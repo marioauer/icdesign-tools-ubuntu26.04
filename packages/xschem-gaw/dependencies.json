@@ -1,0 +1,21 @@
+{
+  "sources": {
+    "gaw": {
+      "url": "https://github.com/StefanSchippers/xschem-gaw.git",
+      "ref": "main",
+      "commit": "6b8fa4ab007e88b3129381e0479737ae014a8b51"
+    }
+  },
+  "build": [
+    "autoconf",
+    "automake",
+    "libtool",
+    "autopoint",
+    "gettext",
+    "libgtk-3-dev"
+  ],
+  "runtime": [
+    "libc6",
+    "libgtk-3-0t64"
+  ]
+}

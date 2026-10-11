@@ -1,0 +1,106 @@
+# xschemrc
+
+# ----------------------------------------------------------------------
+# Project directory
+#
+# [info script] refers to the project-local xschemrc, which may be a
+# symlink to this file. Take the directory first, then normalize it.
+# This keeps paths relative to the project rather than to the actual
+# target of the symlink.
+# ----------------------------------------------------------------------
+
+set project_dir [file normalize [file dirname [info script]]]
+
+
+# ----------------------------------------------------------------------
+# PDK setup
+# ----------------------------------------------------------------------
+
+if {![info exists ::env(PDK_ROOT)]} {
+    error "PDK_ROOT environment variable is not set"
+}
+
+if {![info exists ::env(PDK)]} {
+    error "PDK environment variable is not set"
+}
+
+set pdk_xschemrc [file join \
+    $::env(PDK_ROOT) \
+    $::env(PDK) \
+    libs.tech \
+    xschem \
+    xschemrc]
+
+if {![file exists $pdk_xschemrc]} {
+    error "PDK xschemrc not found: $pdk_xschemrc"
+}
+
+# Source the xschemrc provided by the PDK
+source $pdk_xschemrc
+
+
+# ----------------------------------------------------------------------
+# Library paths
+# ----------------------------------------------------------------------
+
+# Add the project directory to the symbol/library search path.
+# Use an absolute path so this does not depend on where xschem was started.
+set XSCHEM_LIBRARY_PATH "$project_dir:$XSCHEM_LIBRARY_PATH"
+
+
+# Remove empty and duplicate path entries
+set path_temp [split $XSCHEM_LIBRARY_PATH ":"]
+set path_unique_temp {}
+array unset seen
+
+foreach path $path_temp {
+    if {$path eq ""} {
+        continue
+    }
+
+    if {![info exists seen($path)]} {
+        lappend path_unique_temp $path
+        set seen($path) 1
+    }
+}
+
+set XSCHEM_LIBRARY_PATH [join $path_unique_temp ":"]
+
+unset path_temp
+unset path_unique_temp
+array unset seen
+
+
+# ----------------------------------------------------------------------
+# Simulation / netlist directory
+# ----------------------------------------------------------------------
+
+set netlist_dir [file join $project_dir sim]
+
+# Make sure the simulation directory exists
+file mkdir $netlist_dir
+
+
+# ----------------------------------------------------------------------
+# Customization
+# ----------------------------------------------------------------------
+
+# scale grid points up when zooming
+set big_grid_points 1
+
+# wires are trimmed/joined automatically
+set autotrim_wires 1
+
+# terminal for ngspice
+if {[file exists /usr/bin/gnome-terminal]} {
+    set terminal /usr/bin/gnome-terminal
+}
+
+# editor for xschem
+if {[file exists /usr/bin/gnome-text-editor]} {
+    set editor /usr/bin/gnome-text-editor
+}
+
+# allow scripts
+set xschem_execute_scripts "yes"
+

@@ -1,0 +1,39 @@
+{
+  "sources": {
+    "ngspice": {
+      "url": "https://git.code.sf.net/p/ngspice/ngspice",
+      "ref": "ngspice-47",
+      "commit": "a80f6e3e95d51534905b1f23410a951802666656"
+    }
+  },
+  "build": [
+    "autoconf",
+    "automake",
+    "libtool",
+    "bison",
+    "flex",
+    "install-info",
+    "libedit-dev",
+    "libreadline-dev",
+    "libx11-dev",
+    "libxaw7-dev",
+    "libxft-dev",
+    "libxt-dev",
+    "xterm"
+  ],
+  "runtime": [
+    "libc6",
+    "libedit2",
+    "libfontconfig1",
+    "libgcc-s1",
+    "libgomp1",
+    "libreadline8t64",
+    "libstdc++6",
+    "libtinfo6",
+    "libx11-6",
+    "libxaw7",
+    "libxft2",
+    "libxt6t64",
+    "xterm"
+  ]
+}

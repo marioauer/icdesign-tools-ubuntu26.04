@@ -1,0 +1,46 @@
+{
+  "sources": {
+    "klayout": {
+      "url": "https://github.com/KLayout/klayout.git",
+      "ref": "v0.30.12",
+      "commit": "e71272c3b178105bd2a2f25af54673a7af7ed60d"
+    }
+  },
+  "build": [
+    "qtbase5-dev",
+    "qttools5-dev",
+    "libqt5xmlpatterns5-dev",
+    "qtmultimedia5-dev",
+    "libqt5svg5-dev",
+    "libqt5opengl5-dev",
+    "ruby",
+    "ruby-dev",
+    "python3",
+    "python3-dev",
+    "zlib1g-dev",
+    "libgit2-dev"
+  ],
+  "runtime": [
+    "libqt5core5t64",
+    "libqt5designer5",
+    "libqt5gui5t64",
+    "libqt5multimedia5",
+    "libqt5multimediawidgets5",
+    "libqt5network5t64",
+    "libqt5opengl5t64",
+    "libqt5printsupport5t64",
+    "libqt5sql5t64",
+    "libqt5svg5",
+    "libqt5widgets5t64",
+    "libqt5xml5t64",
+    "libqt5xmlpatterns5",
+    "zlib1g",
+    "libgit2-1.9",
+    "libruby3.3",
+    "python3",
+    "libpython3.14",
+    "libstdc++6",
+    "libgcc-s1",
+    "libc6"
+  ]
+}

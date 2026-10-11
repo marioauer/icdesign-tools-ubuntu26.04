@@ -1,0 +1,22 @@
+{
+  "sources": {
+    "netgen": {
+      "url": "https://github.com/RTimothyEdwards/netgen.git",
+      "ref": "1.5.324",
+      "commit": "abe6117e21dd143b82461043572b673a6cea2f87"
+    }
+  },
+  "build": [
+    "tcsh",
+    "tcl-dev",
+    "tk-dev",
+    "libx11-dev"
+  ],
+  "runtime": [
+    "tcl",
+    "tk",
+    "python3",
+    "libc6",
+    "libx11-6"
+  ]
+}

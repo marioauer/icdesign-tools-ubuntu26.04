@@ -1,0 +1,34 @@
+{
+  "sources": {
+    "xschem": {
+      "url": "https://codeberg.org/stef_xschem/xschem.git",
+      "ref": "master",
+      "commit": "f4ba678c5fb36282e8e4aaaf7f493268aa7cb1a4"
+    }
+  },
+  "build": [
+    "autoconf",
+    "automake",
+    "libtool",
+    "bison",
+    "flex",
+    "libcairo2-dev",
+    "tcl-dev",
+    "tk-dev",
+    "libx11-dev",
+    "libxpm-dev",
+    "libreadline-dev",
+    "libxaw7-dev",
+    "libxft-dev"
+  ],
+  "runtime": [
+    "libc6",
+    "libcairo2",
+    "libx11-6",
+    "libxpm4",
+    "libxft2",
+    "libreadline8t64",
+    "tcl",
+    "tk"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "sources": {
+    "openvaf": {
+      "url": "https://github.com/OpenVAF/OpenVAF-Reloaded.git",
+      "ref": "v24.0.2mob",
+      "commit": "fdf2522b70f42793f64b1c72f0195c96dea0cc19"
+    }
+  },
+  "build": [
+    "curl",
+    "llvm-18",
+    "llvm-18-dev",
+    "clang-18",
+    "libclang-18-dev"
+  ],
+  "runtime": [
+    "libc6",
+    "libllvm18",
+    "libstdc++6",
+    "libgcc-s1"
+  ]
+}

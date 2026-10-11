@@ -1,0 +1,6 @@
+dist/
+site/
+__pycache__/
+*.pyc
+.env
+!setup/.env

@@ -1,0 +1,13 @@
+{
+  "ngspice": true,
+  "openvaf": true,
+  "vacask": true,
+  "xschem": true,
+  "klayout": true,
+  "verilator": true,
+  "iverilog": true,
+  "magic": true,
+  "netgen": true,
+  "xyce": true,
+  "xschem-gaw": true
+}

@@ -1,0 +1,31 @@
+{
+  "sources": {
+    "verilator": {
+      "url": "https://github.com/verilator/verilator.git",
+      "ref": "v5.052",
+      "commit": "ea338be98e1e838d3518809ce8899f85a009963c"
+    }
+  },
+  "build": [
+    "autoconf",
+    "flex",
+    "bison",
+    "help2man",
+    "perl",
+    "python3",
+    "libfl-dev",
+    "zlib1g-dev",
+    "liblz4-dev"
+  ],
+  "runtime": [
+    "perl",
+    "python3",
+    "make",
+    "g++",
+    "libc6",
+    "libgcc-s1",
+    "libstdc++6",
+    "zlib1g",
+    "liblz4-1"
+  ]
+}
