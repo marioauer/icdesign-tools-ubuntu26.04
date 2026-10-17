@@ -67,7 +67,7 @@ RUN set -eu; \
 
 WORKDIR /build/Xyce
 RUN set -eu; \
-    install -Dm0644 COPYING /pkgroot/usr/share/doc/icdesign-xyce/copyright; \
+    install -Dm0644 COPYING "/pkgroot${PREFIX}/share/doc/icdesign-xyce/copyright"; \
     version="$(sed -n 's/^project(Xyce VERSION \([0-9.]*\).*/\1/p' CMakeLists.txt)+git$(git show -s --format=%cd --date=format:%Y%m%d HEAD).$(git rev-parse --short=8 HEAD)-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -91,4 +91,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: Xyce circuit simulator for the icdesign tool stack\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-xyce_${version}_${arch}.deb"

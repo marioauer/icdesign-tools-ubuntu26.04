@@ -23,7 +23,7 @@ RUN CFLAGS="-O2 -std=gnu17" ./configure --prefix="${PREFIX}" --with-tcl \
  && make DESTDIR=/pkgroot install
 
 RUN set -eu; \
-    install -Dm0644 Copying /pkgroot/usr/share/doc/icdesign-netgen/copyright; \
+    install -Dm0644 Copying "/pkgroot${PREFIX}/share/doc/icdesign-netgen/copyright"; \
     version="$(tr -d '[:space:]' < VERSION)-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -47,4 +47,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: Open Circuit Design netgen layout versus schematic netlist comparator\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-netgen_${version}_${arch}.deb"

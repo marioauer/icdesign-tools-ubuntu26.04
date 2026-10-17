@@ -29,12 +29,12 @@ RUN set -eu; \
     cp -a /build/klayout-bin/klayout /build/klayout-bin/strm* "/pkgroot${PREFIX}/bin/"; \
     cp -a /build/klayout-bin/lib*.so* /build/klayout-bin/db_plugins \
       /build/klayout-bin/lay_plugins /build/klayout-bin/pymod "/pkgroot${PREFIX}/lib/klayout/"; \
-    install -Dm0644 LICENSE /pkgroot/usr/share/doc/icdesign-klayout/copyright; \
-    install -Dm0644 etc/logo.png /pkgroot/usr/share/pixmaps/icdesign-klayout.png; \
-    mkdir -p /pkgroot/usr/share/applications; \
+    install -Dm0644 LICENSE "/pkgroot${PREFIX}/share/doc/icdesign-klayout/copyright"; \
+    install -Dm0644 etc/logo.png "/pkgroot${PREFIX}/share/pixmaps/icdesign-klayout.png"; \
+    mkdir -p "/pkgroot${PREFIX}/share/applications"; \
     sed -e "s|^Exec=.*|Exec=${PREFIX}/bin/klayout -e %f|" \
-        -e 's|^Icon=.*|Icon=icdesign-klayout|' etc/klayout.desktop \
-      > /pkgroot/usr/share/applications/icdesign-klayout.desktop
+        -e "s|^Icon=.*|Icon=${PREFIX}/share/pixmaps/icdesign-klayout.png|" etc/klayout.desktop \
+      > "/pkgroot${PREFIX}/share/applications/icdesign-klayout.desktop"
 
 # Inspect every executable, private library and plugin, not just the GUI binary.
 # Local shlibs metadata lets dpkg-shlibdeps resolve bundled libraries without
@@ -69,4 +69,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: KLayout chip layout viewer and editor with Python and Ruby scripting\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-klayout_${version}_${arch}.deb"

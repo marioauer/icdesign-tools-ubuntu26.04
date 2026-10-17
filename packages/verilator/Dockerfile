@@ -23,8 +23,8 @@ RUN autoconf && ./configure --prefix="${PREFIX}" \
  && make DESTDIR=/pkgroot install
 
 RUN set -eu; \
-    install -Dm0644 LICENSE /pkgroot/usr/share/doc/icdesign-verilator/copyright; \
-    cp -a LICENSES /pkgroot/usr/share/doc/icdesign-verilator/; \
+    install -Dm0644 LICENSE "/pkgroot${PREFIX}/share/doc/icdesign-verilator/copyright"; \
+    cp -a LICENSES "/pkgroot${PREFIX}/share/doc/icdesign-verilator/"; \
     version="${VERILATOR_VERSION}-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -48,4 +48,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: Verilator Verilog and SystemVerilog compiler and simulator\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-verilator_${version}_${arch}.deb"

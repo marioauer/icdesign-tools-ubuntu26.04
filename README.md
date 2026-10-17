@@ -55,10 +55,13 @@ This installs every package listed in the published manifest but does not instal
 
 ## 3. Make the tools available in your terminal
 
-The tools are installed under `/opt/icdesign/tools`. Add these lines to your `~/.bashrc` once:
+All tool package files, including licenses, documentation, desktop launchers and icons, are installed under `/opt/icdesign/tools`; packaging rejects payload outside this prefix. System dependencies still use Ubuntu's standard locations.
+
+Add these lines to your `~/.bashrc` once:
 
 ```sh
 export PATH="/opt/icdesign/tools/bin:$PATH"
+export XDG_DATA_DIRS="/opt/icdesign/tools/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 export PDK_ROOT="/opt/icdesign/pdks"
 ```
 

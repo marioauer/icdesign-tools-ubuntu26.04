@@ -27,7 +27,7 @@ RUN if [[ -x ./autogen.sh ]]; then ./autogen.sh; \
  && make DESTDIR=/pkgroot install
 
 RUN set -eu; \
-    install -Dm0644 COPYING /pkgroot/usr/share/doc/icdesign-ngspice/copyright; \
+    install -Dm0644 COPYING "/pkgroot${PREFIX}/share/doc/icdesign-ngspice/copyright"; \
     version="${NGSPICE_VERSION}-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -41,4 +41,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: ngspice circuit simulator\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-ngspice_${version}_${arch}.deb"

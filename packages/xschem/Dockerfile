@@ -23,7 +23,7 @@ RUN if [[ ! -x ./configure && -f configure.ac ]]; then autoreconf -fi; fi \
  && make DESTDIR=/pkgroot install
 
 RUN set -eu; \
-    install -Dm0644 LICENSE /pkgroot/usr/share/doc/icdesign-xschem/copyright; \
+    install -Dm0644 LICENSE "/pkgroot${PREFIX}/share/doc/icdesign-xschem/copyright"; \
     version="${XSCHEM_VERSION}"; \
     if [[ -z "${version}" ]]; then \
       version="0~git$(git show -s --format=%cd --date=format:%Y%m%d HEAD).$(git rev-parse --short=8 HEAD)"; \
@@ -41,4 +41,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: xschem schematic editor\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-xschem_${version}_${arch}.deb"

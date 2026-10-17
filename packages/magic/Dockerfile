@@ -23,7 +23,7 @@ RUN CFLAGS="-O2 -std=gnu17" ./configure --prefix="${PREFIX}" --with-tcl --with-o
  && make DESTDIR=/pkgroot install
 
 RUN set -eu; \
-    install -Dm0644 LICENSE /pkgroot/usr/share/doc/icdesign-magic/copyright; \
+    install -Dm0644 LICENSE "/pkgroot${PREFIX}/share/doc/icdesign-magic/copyright"; \
     version="$(tr -d '[:space:]' < VERSION)-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -47,4 +47,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: Magic VLSI layout editor with extraction and design rule checking\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-magic_${version}_${arch}.deb"

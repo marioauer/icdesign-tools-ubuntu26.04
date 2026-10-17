@@ -23,7 +23,7 @@ RUN autoreconf -fi \
  && make DESTDIR=/pkgroot install
 
 RUN set -eu; \
-    install -Dm0644 LICENSE /pkgroot/usr/share/doc/icdesign-xschem-gaw/copyright; \
+    install -Dm0644 LICENSE "/pkgroot${PREFIX}/share/doc/icdesign-xschem-gaw/copyright"; \
     version="1.0+git$(git show -s --format=%cd --date=format:%Y%m%d HEAD).$(git rev-parse --short=8 HEAD)-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -47,4 +47,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: GAW waveform viewer for the icdesign tool stack\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-xschem-gaw_${version}_${arch}.deb"

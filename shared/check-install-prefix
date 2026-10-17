@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Reject staged payload outside the private /opt prefix before packaging.
+set -euo pipefail
+[[ $# == 2 || ( $# == 3 && "$3" == DEBIAN ) ]] || {
+  echo 'Usage: check-install-prefix ROOT PREFIX [DEBIAN]' >&2; exit 2;
+}
+root="$(realpath -e -- "$1")"
+prefix="$(realpath -m -- "$2")"
+[[ "$prefix" == /opt/?* && -d "$root$prefix" ]] || {
+  echo 'Install prefix must be a staged directory below /opt' >&2; exit 1;
+}
+while IFS= read -r -d '' entry; do
+  relative="${entry#"$root"}"
+  case "$relative" in
+    "$prefix"|"$prefix"/*) continue ;;
+    /DEBIAN|/DEBIAN/*) [[ "${3:-}" != DEBIAN ]] || continue ;;
+  esac
+  # Parent directories of the prefix are unavoidable, but must not be symlinks.
+  if [[ -d "$entry" && ! -L "$entry" && "$prefix" == "$relative/"* ]]; then
+    continue
+  fi
+  printf 'Staged path outside %s: %s\n' "$prefix" "$relative" >&2
+  exit 1
+done < <(find "$root" -mindepth 1 -print0)

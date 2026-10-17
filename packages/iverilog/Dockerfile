@@ -23,7 +23,7 @@ RUN sh autoconf.sh && ./configure --prefix="${PREFIX}" \
  && make DESTDIR=/pkgroot install
 
 RUN set -eu; \
-    install -Dm0644 COPYING /pkgroot/usr/share/doc/icdesign-iverilog/copyright; \
+    install -Dm0644 COPYING "/pkgroot${PREFIX}/share/doc/icdesign-iverilog/copyright"; \
     version="${IVERILOG_VERSION}-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -47,4 +47,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: Icarus Verilog compiler and vvp simulation runtime\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-iverilog_${version}_${arch}.deb"

@@ -28,7 +28,7 @@ RUN cargo build --locked --release -p openvaf-driver --features llvm18
 RUN set -eu; \
     install -Dm0755 target/release/openvaf-r "/pkgroot${PREFIX}/bin/openvaf-r"; \
     ln -s openvaf-r "/pkgroot${PREFIX}/bin/openvaf"; \
-    install -Dm0644 LICENSE /pkgroot/usr/share/doc/icdesign-openvaf/copyright; \
+    install -Dm0644 LICENSE "/pkgroot${PREFIX}/share/doc/icdesign-openvaf/copyright"; \
     version="${OPENVAF_VERSION}-1"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -42,4 +42,5 @@ RUN set -eu; \
       printf 'Maintainer: %s\n' "${MAINTAINER}"; \
       printf 'Description: OpenVAF-Reloaded Verilog-A compiler (built from source)\n'; \
     } > /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-openvaf_${version}_${arch}.deb"

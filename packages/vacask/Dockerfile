@@ -56,7 +56,7 @@ RUN cmake -S . -B /build/vacask-build -G Ninja \
 # package owns that path, so do not ship a duplicate. Keep the compiled models.
 RUN set -eu; \
     rm -f "/pkgroot${PREFIX}/bin/openvaf-r"; \
-    install -Dm0644 LICENSE /pkgroot/usr/share/doc/icdesign-vacask/copyright; \
+    install -Dm0644 LICENSE "/pkgroot${PREFIX}/share/doc/icdesign-vacask/copyright"; \
     version="${VACASK_VERSION}-2"; \
     dpkg --validate-version "${version}"; \
     arch="$(dpkg --print-architecture)"; \
@@ -78,4 +78,5 @@ RUN set -eu; \
     deps="$(dpkg-shlibdeps -O "${deps_args[@]}" | sed -n 's/^shlibs:Depends=//p')"; \
     test -n "${deps}"; \
     printf 'Depends: %s, %s\n' "${RUNTIME_DEPS}" "${deps}" >> /pkgroot/DEBIAN/control; \
+    check-install-prefix /pkgroot "${PREFIX}" DEBIAN; \
     dpkg-deb --root-owner-group --build /pkgroot "/out/icdesign-vacask_${version}_${arch}.deb"
