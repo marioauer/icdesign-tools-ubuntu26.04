@@ -58,6 +58,35 @@ class SetupTests(unittest.TestCase):
             ["bash", SETUP / "install-pdk.sh", "--help"], env=env, text=True)
         self.assertIn("--version  canonical-version", result)
 
+    def test_pdk_uses_uv_without_pipx(self):
+        for script in ("install-pdk.sh", "setup.sh"):
+            self.assertNotIn("pipx", (SETUP / script).read_text())
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            bin_dir = root / "bin"
+            bin_dir.mkdir()
+            mocks = {
+                "uv": '#!/bin/bash\nprintf "%s\\n" "$@" > "$LOG"\n',
+                "sudo": '#!/bin/bash\nexec "$@"\n',
+                "pipx": '#!/bin/bash\nexit 99\n',
+            }
+            for name, content in mocks.items():
+                path = bin_dir / name
+                path.write_text(content)
+                path.chmod(0o755)
+            log = root / "uv-args"
+            pdk_root = root / "PDKs with spaces"
+            env = environment()
+            env.update(PATH=f"{bin_dir}:{env['PATH']}", LOG=str(log),
+                       PDK_FAMILY="test-family")
+            subprocess.run(["bash", SETUP / "install-pdk.sh", "--pdk-root", str(pdk_root),
+                            "--version", "test-version", "--no-openvaf-compile"],
+                           env=env, cwd="/tmp", capture_output=True, text=True, check=True)
+            self.assertTrue(pdk_root.is_dir())
+            self.assertEqual(log.read_text().splitlines(),
+                             ["tool", "run", "ciel", "enable", "test-version",
+                              "--pdk-family", "test-family", "--pdk-root", str(pdk_root)])
+
     def test_manifest_validation(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

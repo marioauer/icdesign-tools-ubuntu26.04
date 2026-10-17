@@ -48,14 +48,9 @@ if ! command -v uv >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! command -v pipx >/dev/null 2>&1; then
-  echo "${SCRIPT_NAME}: pipx is required (run ${SCRIPT_DIR}/setup.sh first)." >&2
-  exit 1
-fi
-
 "${SUDO[@]}" mkdir -p "${PDK_ROOT}"
 echo "Enabling ${PDK_FAMILY} PDK ${PDK_VERSION} under ${PDK_ROOT}..."
-"${SUDO[@]}" env "PATH=${PATH}" pipx run ciel enable "${PDK_VERSION}" --pdk-family "${PDK_FAMILY}" --pdk-root "${PDK_ROOT}"
+"${SUDO[@]}" env "PATH=${PATH}" uv tool run ciel enable "${PDK_VERSION}" --pdk-family "${PDK_FAMILY}" --pdk-root "${PDK_ROOT}"
 
 if [[ "${compile_openvaf}" = 1 ]]; then
   va_dir="${PDK_ROOT}/${PDK_FAMILY}/libs.tech/verilog-a"

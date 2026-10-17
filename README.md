@@ -111,7 +111,7 @@ All setup scripts read **`setup/.env`**, even when run from another directory. I
 
 This file is executed as Bash code: use only a trusted copy and do not put secrets in it. The repository-root `.env` is not loaded. Command-line options override exported environment variables, which override `setup/.env` defaults. These settings configure the scripts, not your interactive shell.
 
-To reinstall the PDK or see its options (requires `uv` and `pipx`):
+To reinstall the PDK or see its options (requires `uv`; Ciel runs through `uv tool run`):
 
 ```sh
 ./setup/install-pdk.sh --help

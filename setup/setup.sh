@@ -20,7 +20,6 @@ install_apt_packages() {
     curl \
     git \
     mc \
-    pipx \
     vim-gtk3
 }
 
